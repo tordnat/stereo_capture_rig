@@ -11,8 +11,7 @@ Simple stereo camera rig for SfM and SLAM datasets.
 | Single-board Computer | Jetson Nano 2gb (EoL) | https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-2gb-devkit |
 | Cooling Fan | Noctua NF-A4x10 FLX 40mm | https://www.komplett.no/product/770799?noredirect=true | 
 | Powebank | Sandstrøm 21000 mAh | NA | 
-| Carbon Fiber Rods | 8mm (7mm) Carbon Fibre Square Box Section 
- | https://www.easycomposites.co.uk/8mm-7mm-carbon-fibre-box-section |
+| Carbon Fiber Rods | 8mm (7mm) Carbon Fibre Square Box Section | https://www.easycomposites.co.uk/8mm-7mm-carbon-fibre-box-section |
 
 
 ## Software
