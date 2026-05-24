@@ -295,7 +295,7 @@ int main(int argc, char** argv) {
 
     sl::Mat zedL, zedR;
     sl::RuntimeParameters rt;
-    std::vector<int> png{cv::IMWRITE_PNG_COMPRESSION, 1};
+    std::vector<int> png{cv::IMWRITE_PNG_COMPRESSION, 0};
     long idx = 0, saved = 0;
     int total = zed.getSVONumberOfFrames();
     std::cout << "Exporting " << format << " (" << cam_model
