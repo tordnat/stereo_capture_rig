@@ -24,6 +24,7 @@
 #include "zed_common.hpp"
 
 #include <experimental/filesystem>
+#include <future>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -314,8 +315,9 @@ int main(int argc, char** argv) {
         cv::cvtColor(slMat2cvMat(zedL), l, cv::COLOR_BGRA2BGR);
         cv::cvtColor(slMat2cvMat(zedR), r, cv::COLOR_BGRA2BGR);
         const std::string fn = std::to_string(ts) + ".png";
-        cv::imwrite(c0 + "/" + fn, l, png);
+        auto fut = std::async(std::launch::async, [&]{ cv::imwrite(c0 + "/" + fn, l, png); });
         cv::imwrite(c1 + "/" + fn, r, png);
+        fut.get();
         csv0 << ts << "," << fn << "\n";
         csv1 << ts << "," << fn << "\n";
         if (!euroc) {
