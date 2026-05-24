@@ -123,8 +123,9 @@ int main(int argc, char** argv) {
     init.input.setFromSVOFile(sl::String(svo_path.c_str()));
     init.coordinate_units = sl::UNIT::METER;
     init.depth_mode       = sl::DEPTH_MODE::NONE;
-    if (zed.open(init) != sl::ERROR_CODE::SUCCESS) {
-        std::cerr << "Open SVO failed.\n"; return 1; }
+    sl::ERROR_CODE open_err = zed.open(init);
+    if (open_err != sl::ERROR_CODE::SUCCESS) {
+        std::cerr << "Open SVO failed: " << sl::toString(open_err) << "\n"; return 1; }
     sl::CameraInformation info = zed.getCameraInformation();
 
     const sl::VIEW vL = unrectified ? sl::VIEW::LEFT_UNRECTIFIED  : sl::VIEW::LEFT;
@@ -144,7 +145,7 @@ int main(int argc, char** argv) {
         KR[0]=R.fx; KR[1]=R.fy; KR[2]=R.cx; KR[3]=R.cy;
     }
 
-    const sl::Transform& T = info.camera_configuration.calibration_parameters.stereo_transform;
+    const sl::Transform& T = info.camera_configuration.calibration_parameters_raw.stereo_transform;
     sl::Orientation o = T.getOrientation();
     sl::Translation tt = T.getTranslation();
     Qd q_st{ o.ox, o.oy, o.oz, o.ow };
@@ -259,7 +260,7 @@ int main(int argc, char** argv) {
           << r10<<", "<<r11<<", "<<r12<<", "<<pb.y<<", "
           << r20<<", "<<r21<<", "<<r22<<", "<<pb.z<<", "
           << "0.0, 0.0, 0.0, 1.0]\n";
-        y << "rate_hz: 15\n";
+        y << "rate_hz: " << info.camera_configuration.fps << "\n";
         y << "resolution: [" << W << ", " << H << "]\n";
         y << "camera_model: pinhole\n";
         y << "intrinsics: [" << K[0] << ", " << K[1] << ", " << K[2] << ", " << K[3] << "]\n";
