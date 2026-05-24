@@ -30,6 +30,7 @@ static void on_signal(int) { g_interrupted = 1; }
 int main(int argc, char** argv) {
     std::signal(SIGINT,  on_signal);
     std::signal(SIGTERM, on_signal);
+    std::signal(SIGHUP, on_signal);
 
     std::string out_dir = "zed_rec";
     std::string mode    = "2k15";
